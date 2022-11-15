@@ -13,13 +13,12 @@ public class LoginPage extends BaseClass{
 	private By oRegisterLink = By.xpath("//*[text()='Register For Account']");
 	private By oLoginFailedInnerText = By.xpath("//div[contains(text(),'login failed')]");
 	
-	public boolean verifyElement() {
+	public boolean verifyLoginElements() {
 		if(driver.findElement(oUsernameText).isDisplayed() && 
 			driver.findElement(oPasswordText).isDisplayed() &&
 			driver.findElement(oSignInBtn).isEnabled() &&
 			driver.findElement(oForgotLink).isDisplayed() &&
-			driver.findElement(oRegisterLink).isDisplayed() &&
-			driver.findElement(oLoginFailedInnerText).isDisplayed()) {
+			driver.findElement(oRegisterLink).isDisplayed()) {
 			return true;
 		}else {
 			return false;
@@ -49,6 +48,11 @@ public class LoginPage extends BaseClass{
 	public boolean validateLoginFailedText() {
 		boolean result = driver.findElement(oLoginFailedInnerText).isDisplayed();
 		return result;
+	}
+	
+	public RegistrationPage clickOnRegistrationLink() {
+		driver.findElement(oRegisterLink).click();;
+		return new RegistrationPage();
 	}
 	
 
