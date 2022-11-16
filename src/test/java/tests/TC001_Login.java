@@ -1,12 +1,18 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import base.BaseClass;
 import pages.LoginPage;
 
 public class TC001_Login extends BaseClass{
+	
+	@BeforeTest
+	public void testCaseDataSetUp() {
+		excelFileName = "TC001";
+	}
 	
 	@Test(priority = 1)
 	public void loginFieldValidation() {
@@ -15,11 +21,11 @@ public class TC001_Login extends BaseClass{
 		Assert.assertEquals(result, true);
 	}
 	
-	@Test(priority = 2)
-	public void loginWithValidCredential() {
+	@Test(priority = 2,dataProvider = "TestData")
+	public void loginWithValidCredential(String uName,String password) {
 		boolean result = new LoginPage()
-		.typeUserName("Mathan")
-		.typePassword("Testing123")
+		.typeUserName(uName)
+		.typePassword(password)
 		.clickSignOn()
 		.validateHomePage()
 		.clickonLogout()

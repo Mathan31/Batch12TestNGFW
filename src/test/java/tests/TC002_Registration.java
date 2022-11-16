@@ -1,9 +1,8 @@
 package tests;
 
-import java.util.Random;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import base.BaseClass;
 import pages.LoginPage;
 import pages.RegistrationPage;
@@ -30,13 +29,13 @@ public class TC002_Registration extends BaseClass{
 		boolean result = new LoginPage()
 		.clickOnRegistrationLink()
 		.enterFirstName(FakerDataFactory.getFirstName())
-		.selectTitle("Mr")
+		.selectTitle(FakerDataFactory.getTitle())
 		.enterMiddleName()
 		.enterLastName(FakerDataFactory.getLastName())
-		.selectGender("Male")
-		.enterUserName("Credo"+getRandomIntNumber(1111, 9999)+"Systemz")
-		.enterEmail("Credo"+getRandomIntNumber(1111, 9999)+"Systemz"+"@credo.com")
-		.enterPassword("testing123")
+		.selectGender(FakerDataFactory.getGender())
+		.enterUserName(FakerDataFactory.getUserName()+FakerDataFactory.getRandomNumber())
+		.enterEmail(FakerDataFactory.getEmailAddress())
+		.enterPassword(FakerDataFactory.getFirstName())
 		.clickRegisterLink()
 		.verifyUserRegistration()
 		.clickOnUILogo()
@@ -47,12 +46,5 @@ public class TC002_Registration extends BaseClass{
 	//@Test(priority = 3)
 	public void registrationWithAlltheFields() {
 		
-	}
-
-	
-	public int getRandomIntNumber(int min,int max) {
-		Random ran = new Random();
-		int result = ran.nextInt((max-min)+1)+min;
-		return result;
 	}
 }

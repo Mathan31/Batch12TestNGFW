@@ -33,6 +33,11 @@ public class FakerDataFactory {
 		return faker.country().toString();
 	}
 
+	public static String getUserName() {
+		return faker.name().username();
+	}
+	
+	
 	public static String getFirstName() {
 		return faker.name().firstName();
 	}
@@ -53,6 +58,10 @@ public class FakerDataFactory {
 		return ""+faker.number().randomNumber(8, false);
 	}
 	
+	public static String getRandomNumber() {
+		return ""+faker.number().randomNumber(9, false);
+	}
+	
 	public static String getSwiftCode() {
 		return ""+faker.number().randomNumber(4, false);
 	}
@@ -66,6 +75,14 @@ public class FakerDataFactory {
 	
 	public static String getSalutation() {
 		return faker.options().option("Mr.","Ms.", "Mrs.", "Dr.", "Prof.");
+	}
+	
+	public static String getTitle() {
+		return faker.options().option("Mr","Ms", "Mrs");
+	}
+	
+	public static String getGender() {
+		return faker.options().option("Male","Female");
 	}
 	
 	
