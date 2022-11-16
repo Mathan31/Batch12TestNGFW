@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import base.BaseClass;
 import pages.LoginPage;
 import pages.RegistrationPage;
+import utility.FakerDataFactory;
 
 public class TC002_Registration extends BaseClass{
 	
@@ -28,10 +29,10 @@ public class TC002_Registration extends BaseClass{
 	public void registrationWithMandatoryFields() {
 		boolean result = new LoginPage()
 		.clickOnRegistrationLink()
-		.enterFirstName("Credo")
+		.enterFirstName(FakerDataFactory.getFirstName())
 		.selectTitle("Mr")
 		.enterMiddleName()
-		.enterLastName("Systemz")
+		.enterLastName(FakerDataFactory.getLastName())
 		.selectGender("Male")
 		.enterUserName("Credo"+getRandomIntNumber(1111, 9999)+"Systemz")
 		.enterEmail("Credo"+getRandomIntNumber(1111, 9999)+"Systemz"+"@credo.com")

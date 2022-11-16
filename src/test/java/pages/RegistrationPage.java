@@ -8,7 +8,7 @@ import base.BaseClass;
 public class RegistrationPage extends BaseClass{
 	
 	private By oFirstName = By.id("firstName");
-	private By oMiddleName = By.id("middleName");
+	private By oMiddleName = By.id("middleName"); 
 	private By oLastName = By.id("lastName");
 	private By oUserName = By.id("username");
 	private By oEmail = By.id("email");
