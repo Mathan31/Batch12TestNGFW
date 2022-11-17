@@ -15,12 +15,12 @@ import utility.PropertiesReader;
 
 public class BaseClass {
 	
-	public static WebDriver driver;
+	public WebDriver driver;
 	public String sFileName = "Environment_Details";
 	public String excelFileName = "";
 	public String iBrowserType = PropertiesReader.getPropertyValue(sFileName, "browser");
 	String sURL = PropertiesReader.getPropertyValue(sFileName, "production");
-	
+	//4654654651321
 	@BeforeClass
 	public void invokeBrowser() {
 		String browserType = iBrowserType.toLowerCase();

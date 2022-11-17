@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 import base.BaseClass;
 
@@ -12,7 +13,13 @@ public class LoginPage extends BaseClass{
 	private By oForgotLink = By.xpath("//*[text()='Register For Account']");
 	private By oRegisterLink = By.xpath("//*[text()='Register For Account']");
 	private By oLoginFailedInnerText = By.xpath("//div[contains(text(),'login failed')]");
+	private WebDriver driver;
 	
+	public LoginPage(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+		
 	public boolean verifyLoginElements() {
 		if(driver.findElement(oUsernameText).isDisplayed() && 
 			driver.findElement(oPasswordText).isDisplayed() &&
@@ -37,7 +44,7 @@ public class LoginPage extends BaseClass{
 	
 	public HomePage clickSignOn() {
 		driver.findElement(oSignInBtn).click();
-		return new HomePage();
+		return new HomePage(driver);
 	}
 	
 	public LoginPage clickSingOnWithInValidCredential() {
@@ -52,7 +59,7 @@ public class LoginPage extends BaseClass{
 	
 	public RegistrationPage clickOnRegistrationLink() {
 		driver.findElement(oRegisterLink).click();;
-		return new RegistrationPage();
+		return new RegistrationPage(driver);
 	}
 	
 

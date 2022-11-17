@@ -16,14 +16,14 @@ public class TC001_Login extends BaseClass{
 	
 	@Test(priority = 1)
 	public void loginFieldValidation() {
-		boolean result = new LoginPage()
+		boolean result = new LoginPage(driver)
 		.verifyLoginElements();
 		Assert.assertEquals(result, true);
 	}
 	
 	@Test(priority = 2,dataProvider = "TestData")
 	public void loginWithValidCredential(String uName,String password) {
-		boolean result = new LoginPage()
+		boolean result = new LoginPage(driver)
 		.typeUserName(uName)
 		.typePassword(password)
 		.clickSignOn()
@@ -35,7 +35,7 @@ public class TC001_Login extends BaseClass{
 	
 	@Test(priority = 3)
 	public void loginWithInValidCredential() {
-		boolean result = new LoginPage()
+		boolean result = new LoginPage(driver)
 		.typeUserName("Mathan")
 		.typePassword("Testing321")
 		.clickSingOnWithInValidCredential()
