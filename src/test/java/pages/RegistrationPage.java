@@ -4,7 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import base.BaseClass;
+import library.SeleniumWrapper;
 
 public class RegistrationPage extends BaseClass{
 	
@@ -23,9 +26,12 @@ public class RegistrationPage extends BaseClass{
 //	private By oMartialStatus = By.id("maritalStatus");
 //	private By oNumberOfDependents = By.id("numberOfDependents");
 	private WebDriver driver;
+	private SeleniumWrapper oWrap;
 	
-	public RegistrationPage(WebDriver driver) {
+	public RegistrationPage(WebDriver driver,ExtentTest node) {
 		this.driver = driver;
+		this.node = node;
+		oWrap = new SeleniumWrapper(driver, node);
 	}
 	
 	

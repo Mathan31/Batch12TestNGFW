@@ -7,20 +7,34 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
+import library.HTMLReport;
 import utility.ExcelReader;
 import utility.PropertiesReader;
 
-public class BaseClass {
+public class BaseClass extends HTMLReport{
 	
 	public WebDriver driver;
 	public String sFileName = "Environment_Details";
 	public String excelFileName = "";
+	public String testName,testDescription,module;
 	public String iBrowserType = PropertiesReader.getPropertyValue(sFileName, "browser");
 	String sURL = PropertiesReader.getPropertyValue(sFileName, "production");
-	//4654654651321
+	
+	@BeforeSuite
+	public void reportInitialize() {
+		startReport();
+	}
+	
+	@AfterSuite
+	public void stopReport() {
+		endReport();
+	}
+
 	@BeforeClass
 	public void invokeBrowser() {
 		String browserType = iBrowserType.toLowerCase();
@@ -52,7 +66,8 @@ public class BaseClass {
 		driver.get(sURL);
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		
+		startTestCase(testName, testDescription);
+		startTestcase(module);
 		
 	}
 	
@@ -65,6 +80,12 @@ public class BaseClass {
 	public Object[][] excelData() {
 		Object[][] values = ExcelReader.getValueFromExcel(excelFileName);
 		return values;
+	}
+
+	@Override
+	public String takeScreenshot() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

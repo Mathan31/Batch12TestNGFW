@@ -3,7 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import base.BaseClass;
+import library.SeleniumWrapper;
 
 public class LoginPage extends BaseClass{
 	
@@ -14,52 +17,59 @@ public class LoginPage extends BaseClass{
 	private By oRegisterLink = By.xpath("//*[text()='Register For Account']");
 	private By oLoginFailedInnerText = By.xpath("//div[contains(text(),'login failed')]");
 	private WebDriver driver;
+	private SeleniumWrapper oWrap;
 	
-	public LoginPage(WebDriver driver) {
+	public LoginPage(WebDriver driver,ExtentTest node) {
 		this.driver = driver;
+		this.node = node;
+		oWrap = new SeleniumWrapper(driver, node);
 	}
 	
 		
 	public boolean verifyLoginElements() {
-		if(driver.findElement(oUsernameText).isDisplayed() && 
-			driver.findElement(oPasswordText).isDisplayed() &&
-			driver.findElement(oSignInBtn).isEnabled() &&
-			driver.findElement(oForgotLink).isDisplayed() &&
-			driver.findElement(oRegisterLink).isDisplayed()) {
+			
+		if(oWrap.verifyDisplayedwithReturn(driver.findElement(oUsernameText)) && 
+				oWrap.verifyDisplayedwithReturn(driver.findElement(oPasswordText)) && 
+				oWrap.verifyDisplayedwithReturn(driver.findElement(oSignInBtn)) && 
+				oWrap.verifyDisplayedwithReturn(driver.findElement(oForgotLink)) &&
+				oWrap.verifyDisplayedwithReturn(driver.findElement(oRegisterLink))) {
+			
 			return true;
 		}else {
 			return false;
 		}
+		
+		
 	}
 	
 	public LoginPage typeUserName(String userName) {
-		driver.findElement(oUsernameText).sendKeys(userName);
+		oWrap.type(driver.findElement(oUsernameText), userName);
 		return this;
 	}
 	
 	public LoginPage typePassword(String password) {
-		driver.findElement(oPasswordText).sendKeys(password);
+		oWrap.type(driver.findElement(oUsernameText), password);
 		return this;
 	}
 	
 	public HomePage clickSignOn() {
-		driver.findElement(oSignInBtn).click();
+		oWrap.click(driver.findElement(oSignInBtn));
 		return new HomePage(driver);
 	}
 	
 	public LoginPage clickSingOnWithInValidCredential() {
-		driver.findElement(oSignInBtn).click();
+		oWrap.click(driver.findElement(oSignInBtn));
 		return this;
 	}
 
 	public boolean validateLoginFailedText() {
-		boolean result = driver.findElement(oLoginFailedInnerText).isDisplayed();
+		boolean result = oWrap.verifyDisplayedwithReturn(driver.findElement(oLoginFailedInnerText));
 		return result;
 	}
 	
 	public RegistrationPage clickOnRegistrationLink() {
-		driver.findElement(oRegisterLink).click();;
-		return new RegistrationPage(driver);
+		oWrap.click(driver.findElement(oRegisterLink));
+		return new RegistrationPage(driver,node);
 	}
 	
 
