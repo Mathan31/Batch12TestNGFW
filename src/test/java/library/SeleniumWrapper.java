@@ -88,6 +88,19 @@ public void click(WebElement ele) {
 	} 
 }
 
+public void click(WebElement ele,String eleName) {
+	try {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(ele));			
+		ele.click();
+		reportStep("The element "+eleName+" is clicked", "PASS");
+	} catch (InvalidElementStateException e) {
+		reportStep("The element: "+eleName+" could not be clicked", "FAIL");
+	} catch (WebDriverException e) {
+		reportStep("Unknown exception occured while clicking in the field :", "FAIL");
+	} 
+}
+
 public void clickWithNoSnap(WebElement ele) {
 	String text = ""; 
 	try {
@@ -250,10 +263,11 @@ public void verifySelected(WebElement ele) {
 
 public void verifyDisplayed(WebElement ele) {
 	try {
+		String attribute = ele.getAttribute("name");
 		if(ele.isDisplayed()) {
-			reportStep("The element is visible","PASS");
+			reportStep("The element "+attribute+"is visible","PASS");
 		} else {
-			reportStep("The element is not visible","FAIL");
+			reportStep("The element "+attribute+" is not visible","FAIL");
 		}
 	} catch (WebDriverException e) {
 		reportStep("WebDriverException : "+e.getMessage(), "FAIL");
@@ -263,12 +277,30 @@ public void verifyDisplayed(WebElement ele) {
 public boolean verifyDisplayedwithReturn(WebElement ele) {
 	boolean result = false;
 	try {
+		String attribute = ele.getAttribute("name");
 		if(ele.isDisplayed()) { 
-			reportStep("The element is visible","PASS");
+			reportStep("The element "+attribute+" is visible","PASS");
 			result = true;
 			return result;
 		} else {
-			reportStep("The element is not visible","FAIL");
+			reportStep("The element "+attribute+" is not visible","FAIL");
+			return result;
+		}
+	} catch (WebDriverException e) {
+		reportStep("WebDriverException : "+e.getMessage(), "FAIL");
+	}
+	return result;
+}
+
+public boolean verifyDisplayedwithReturn(WebElement ele,String element) {
+	boolean result = false;
+	try {
+		if(ele.isDisplayed()) { 
+			reportStep("The element "+element+" is visible","PASS");
+			result = true;
+			return result;
+		} else {
+			reportStep("The element "+element+"  is not visible","FAIL");
 			return result;
 		}
 	} catch (WebDriverException e) {

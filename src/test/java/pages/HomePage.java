@@ -3,7 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import base.BaseClass;
+import library.SeleniumWrapper;
 
 public class HomePage extends BaseClass{
 	
@@ -11,13 +14,16 @@ public class HomePage extends BaseClass{
 	private By oLogout = By.xpath("//a[text()='Logout']");
 	private By oApplyForNewAccount = By.xpath("//div[@class='btn btn-white card-header-item']");
 	private WebDriver driver;
+	private SeleniumWrapper oWrap;
 	
-	public HomePage(WebDriver driver) {
+	public HomePage(WebDriver driver,ExtentTest node) {
 		this.driver = driver;
+		this.node = node;
+		oWrap = new SeleniumWrapper(driver, node);
 	}
 	
 	public HomePage validateHomePage() {
-		if(driver.findElement(oWelcome).isDisplayed() && driver.findElement(oLogout).isDisplayed()) {
+		if(oWrap.verifyDisplayedwithReturn(driver.findElement(oWelcome))&& oWrap.verifyDisplayedwithReturn(driver.findElement(oLogout))) {
 			System.out.println("User Landed to the Home Page!!!");
 			return this;
 		}else {
@@ -32,8 +38,8 @@ public class HomePage extends BaseClass{
 //	}
 	 
 	public LoginPage clickonLogout() {
-		driver.findElement(oLogout).click();;
-		return new LoginPage(driver);
+		oWrap.click(driver.findElement(oLogout));
+		return new LoginPage(driver,node);
 	}
 	
 

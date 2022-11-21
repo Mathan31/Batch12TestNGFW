@@ -3,7 +3,10 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import base.BaseClass;
+import library.SeleniumWrapper;
 
 public class EmailVerificationPage extends BaseClass{
 	
@@ -11,13 +14,16 @@ public class EmailVerificationPage extends BaseClass{
 	//private By oLogin = By.linkText("Login");
 	private By oUILogo = By.xpath("//a[@class='navbar-brand']");
 	private WebDriver driver;
+	private SeleniumWrapper oWrap;
 	
-	public EmailVerificationPage(WebDriver driver) {
+	public EmailVerificationPage(WebDriver driver,ExtentTest node) {
 		this.driver = driver;
+		this.node = node;
+		oWrap = new SeleniumWrapper(driver, node);
 	}
 	
 	public EmailVerificationPage verifyUserRegistration() {
-		boolean displayed = driver.findElement(oWelcome).isDisplayed();
+		boolean displayed = oWrap.verifyDisplayedwithReturn(driver.findElement(oWelcome),"Welcome Logo");
 		if(displayed) {
 			System.out.println("User Registration is Successfull!!!");
 		}else {
@@ -27,8 +33,8 @@ public class EmailVerificationPage extends BaseClass{
 	} 
 	
 	public LoginPage clickOnUILogo() {
-		driver.findElement(oUILogo).click();
-		return new LoginPage(driver);
+		oWrap.click(driver.findElement(oUILogo),"UI Bank Logo");
+		return new LoginPage(driver,node);
 	}
 
 }

@@ -30,9 +30,9 @@ public class LoginPage extends BaseClass{
 			
 		if(oWrap.verifyDisplayedwithReturn(driver.findElement(oUsernameText)) && 
 				oWrap.verifyDisplayedwithReturn(driver.findElement(oPasswordText)) && 
-				oWrap.verifyDisplayedwithReturn(driver.findElement(oSignInBtn)) && 
-				oWrap.verifyDisplayedwithReturn(driver.findElement(oForgotLink)) &&
-				oWrap.verifyDisplayedwithReturn(driver.findElement(oRegisterLink))) {
+				oWrap.verifyDisplayedwithReturn(driver.findElement(oSignInBtn),"SignIn Button") && 
+				oWrap.verifyDisplayedwithReturn(driver.findElement(oForgotLink),"Forgot link") &&
+				oWrap.verifyDisplayedwithReturn(driver.findElement(oRegisterLink),"Register link")) {
 			
 			return true;
 		}else {
@@ -48,13 +48,13 @@ public class LoginPage extends BaseClass{
 	}
 	
 	public LoginPage typePassword(String password) {
-		oWrap.type(driver.findElement(oUsernameText), password);
+		oWrap.type(driver.findElement(oPasswordText), password);
 		return this;
 	}
 	
 	public HomePage clickSignOn() {
 		oWrap.click(driver.findElement(oSignInBtn));
-		return new HomePage(driver);
+		return new HomePage(driver,node);
 	}
 	
 	public LoginPage clickSingOnWithInValidCredential() {

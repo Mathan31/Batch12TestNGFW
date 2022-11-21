@@ -1,7 +1,11 @@
 package base;
 
+import java.io.File;
 import java.time.Duration;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -84,8 +88,17 @@ public class BaseClass extends HTMLReport{
 
 	@Override
 	public String takeScreenshot() {
-		// TODO Auto-generated method stub
-		return null;
+		String sPath = System.getProperty("user.dir")+"/snap/img"+System.currentTimeMillis()+".png";
+		TakesScreenshot oShot = (TakesScreenshot)driver;
+		File osrc = oShot.getScreenshotAs(OutputType.FILE);
+		File dis = new File(sPath);
+		try {
+			FileUtils.copyFile(osrc, dis);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sPath;
 	}
 	
 

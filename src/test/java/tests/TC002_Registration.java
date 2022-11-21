@@ -1,6 +1,7 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import base.BaseClass;
@@ -10,13 +11,23 @@ import utility.FakerDataFactory;
 
 public class TC002_Registration extends BaseClass{
 	
+	@BeforeTest
+	public void testCaseDataSetUp() {
+		
+		authors = "Yogeshwari";
+		category = "Regression";
+		testName = "Registration Test";
+		testDescription = "Registration Test Case Valiatation";
+		module = "Registration";
+	}
+	
 	@Test(priority = 1)
 	public void registrationFieldValidation() {
-		boolean registrationResult = new LoginPage(driver)
+		boolean registrationResult = new LoginPage(driver,node)
 		.clickOnRegistrationLink()
 		.verifyAllTheRegistrationFields();
 				
-		boolean loginResult = new RegistrationPage(driver)
+		boolean loginResult = new RegistrationPage(driver,node)
 		.clickOnUILogo()
 		.verifyLoginElements();
 		
@@ -26,7 +37,7 @@ public class TC002_Registration extends BaseClass{
 	
 	@Test(priority = 2)
 	public void registrationWithMandatoryFields() {
-		boolean result = new LoginPage(driver)
+		boolean result = new LoginPage(driver,node)
 		.clickOnRegistrationLink()
 		.enterFirstName(FakerDataFactory.getFirstName())
 		.selectTitle(FakerDataFactory.getTitle())
